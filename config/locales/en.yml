@@ -1,0 +1,28 @@
+---
+en:
+  decidim:
+    admin:
+      menu:
+        omniauth_settings: Omniauth
+    components:
+      omniauth_extras:
+        name: OmniauthExtras
+    authorization_handlers:
+      omniauth_decidim_handler:
+        name: Omniauth Decidim
+      omniauth_decidim:
+        name: Omniauth Decidim
+        explanation: Validate with your external Decidim account
+      france_connect:
+        name: France Connect
+        explanation: Validate with your France Connect account
+    verifications:
+      omniauth:
+        authorizations:
+          new:
+            error: OmniauthAuthorizationForm ERROR
+            succes: OmniauthAuthorizationForm SUCCESS
+  decidim_omniauth_extras:
+      admin:
+        menu:
+          omniauth_settings: Navbar links

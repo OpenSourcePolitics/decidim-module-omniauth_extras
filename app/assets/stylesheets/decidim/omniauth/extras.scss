@@ -1,0 +1,15 @@
+.authorizations-list {
+
+  .card--list__item svg {
+    flex-basis: 5vw;
+  }
+
+  .card--list__text span.text-small {
+    display: block;
+    white-space: pre-line;
+
+    &:first-line, &::first-line {
+      line-height: 0;
+    }
+  }
+}
