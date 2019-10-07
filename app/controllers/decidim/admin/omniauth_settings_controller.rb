@@ -3,10 +3,14 @@
 module Decidim
   module Admin
     class OmniauthSettingsController < Decidim::Admin::ApplicationController
+
+      helper Decidim::OmniauthHelper
+
       layout "decidim/admin/settings"
 
       def edit
         enforce_permission_to :update, :organization, organization: current_organization
+        @form = form(OmniauthSettingsForm).from_model(current_organization)
       end
 
       def update

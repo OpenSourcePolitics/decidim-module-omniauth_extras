@@ -21,22 +21,22 @@ module Decidim
         end
       end
 
-      initializer "decidim_omniauth_extras.menu" do
-        Decidim.menu :admin_menu do |menu|
-          menu_settings = menu.items.find do |item|
-            item.label == I18n.t("menu.settings", scope: "decidim.admin")
-          end
-          menu_settings.active << "decidim/admin/omniauth"
-        end
-
-        Decidim.menu :admin_settings_menu do |menu|
-          menu.item I18n.t("menu.omniauth_settings", scope: "decidim.admin"),
-                    decidim_omniauth_extras.edit_omniauth_settings_path,
-                    position: 10,
-                    active: [%w(decidim/admin/omniauth_settings), []],
-                    if: allowed_to?(:update, :organization, organization: current_organization)
-        end
-      end
+      # initializer "decidim_omniauth_extras.menu" do
+      #   Decidim.menu :admin_menu do |menu|
+      #     menu_settings = menu.items.find do |item|
+      #       item.label == I18n.t("menu.settings", scope: "decidim.admin")
+      #     end
+      #     menu_settings.active << "decidim/admin/omniauth" if menu_settings.present?
+      #   end
+      #
+      #   Decidim.menu :admin_settings_menu do |menu|
+      #     menu.item I18n.t("menu.omniauth_settings", scope: "decidim.admin"),
+      #               decidim_omniauth_extras.edit_omniauth_settings_path,
+      #               position: 10,
+      #               active: [%w(decidim/admin/omniauth_settings), []],
+      #               if: allowed_to?(:update, :organization, organization: current_organization)
+      #   end
+      # end
 
       def load_seed
         nil

@@ -7,14 +7,14 @@ module Decidim
     #
     class OmniauthSettingsForm < Form
       include TranslatableAttributes
+      include JsonbAttributes
+      include OmniauthSettingsJsonbAttributes
 
       mimic :organization
 
-      jsonb_attribute :omniauth_settings, [
-        [:provider, String],
-        [:enabled, String],
-        [:config, String]
-      ]
+        omniauth_settings_jsonb_attribute :omniauth_settings, Decidim::User.omniauth_providers.select {
+          |provider| Rails.application.secrets.dig(:omniauth, provider.to_sym, :enabled)
+        }
 
     end
   end

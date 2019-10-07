@@ -40,18 +40,7 @@ module Decidim
       end
 
       def attributes
-        {
-          name: form.name,
-          default_locale: form.default_locale,
-          reference_prefix: form.reference_prefix,
-          twitter_handler: form.twitter_handler,
-          facebook_handler: form.facebook_handler,
-          instagram_handler: form.instagram_handler,
-          youtube_handler: form.youtube_handler,
-          github_handler: form.github_handler,
-          badges_enabled: form.badges_enabled,
-          user_groups_enabled: form.user_groups_enabled
-        }
+        { omniauth_settings: form.omniauth_settings }
       end
     end
   end

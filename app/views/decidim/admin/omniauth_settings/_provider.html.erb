@@ -1,0 +1,10 @@
+<div class="card">
+  <div class="card-divider">
+    <%= f.check_box :enabled, label: t(".enabled", provider: normalize_provider_name(provider)) %>
+  </div>
+  <div class="card-section">
+    <% Rails.application.secrets.dig(:omniauth, provider.to_sym).keys.select { |k| k != :enabled }.each do |setting| %>
+        <%= f.text_field setting, label: normalize_provider_name(setting) %>
+    <% end %>
+  </div>
+</div>
