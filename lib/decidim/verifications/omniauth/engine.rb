@@ -10,7 +10,8 @@ module Decidim
         paths["lib/tasks"] = nil
 
         routes do
-          resource :authorization, only: [:new], as: :authorization
+          get "authorize", to: "authorizations#new"
+          get "callback", to: "authorizations#callback"
           root to: "authorizations#new"
         end
       end

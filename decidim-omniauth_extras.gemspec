@@ -19,4 +19,7 @@ Gem::Specification.new do |s|
   s.files = Dir["{app,config,lib}/**/*", "LICENSE-AGPLv3.txt", "Rakefile", "README.md"]
 
   s.add_dependency "decidim-core", Decidim::OmniauthExtras.version
+  s.add_dependency "omniauth", "~> 1.5"
+  s.add_dependency "omniauth-oauth2", ">= 1.4.0", "< 2.0"
+  s.add_dependency "omniauth_openid_connect", "0.3.1"
 end

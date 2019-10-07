@@ -1,6 +1,8 @@
 # frozen_string_literal: true
 
-require "decidim/verifications/extends/workflow_manifest"
+require "omniauth/strategies/decidim"
+require "omniauth/strategies/france_connect_uid"
+require "omniauth/strategies/france_connect_profile"
 
 require "decidim/omniauth_extras/admin"
 require "decidim/omniauth_extras/engine"

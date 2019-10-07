@@ -4,25 +4,36 @@ en:
     admin:
       menu:
         omniauth_settings: Omniauth
+      omniauth_settings:
+        edit:
+          title: Edit Omniauth settings
+          update: Update
+        provider:
+          config: Configuration
+          enabled: Enable %{provider}
     components:
       omniauth_extras:
         name: OmniauthExtras
     authorization_handlers:
-      omniauth_decidim_handler:
-        name: Omniauth Decidim
-      omniauth_decidim:
-        name: Omniauth Decidim
-        explanation: Validate with your external Decidim account
       france_connect:
         name: France Connect
         explanation: Validate with your France Connect account
+      france_connect_uid:
+        name: France Connect Level I
+        explanation: Validate with your France Connect account
+      france_connect_profile:
+        name: France Connect Level II
+        explanation: Validate with your France Connect account
+      omniauth_decidim_handler:
+        name: Omniauth Decidim
+      decidim:
+        name: Omniauth Decidim
+        explanation: Validate with your external Decidim account
+      omniauth_authorization_form:
+        name: Name
     verifications:
       omniauth:
         authorizations:
           new:
-            error: OmniauthAuthorizationForm ERROR
-            succes: OmniauthAuthorizationForm SUCCESS
-  decidim_omniauth_extras:
-      admin:
-        menu:
-          omniauth_settings: Navbar links
+            error: We could not verify your account from this external provider.
+            success: Your account has been successfully verified.

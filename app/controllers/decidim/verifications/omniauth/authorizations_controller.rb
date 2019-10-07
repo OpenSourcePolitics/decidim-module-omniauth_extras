@@ -9,16 +9,16 @@ module Decidim
         before_action :load_authorization
 
         def new
-          @form = OmniauthAuthorizationForm.from_params(user: current_user, provider: provider)
-          ConfirmOmniauthAuthorization.call(@authorization, @form) do
-            on(:ok) do
-              flash[:notice] = t("authorizations.new.success", scope: "decidim.verifications.omniauth")
-            end
-            on(:invalid) do
-              flash[:alert] = t("authorizations.new.error", scope: "decidim.verifications.omniauth")
-            end
-            redirect_to decidim_verifications.authorizations_path
-          end
+          # TODO : create abstract route for omniauth actions
+          # TODO : validate action BEFORE launch the OmniAuth process
+          store_location_for(:redirect, store_location_for(:user, stored_location_for(:user)))
+          redirect_to decidim.send("user_#{provider}_omniauth_authorize_path")
+        end
+
+        def callback
+          flash[:notice] = t("authorizations.new.success", scope: "decidim.verifications.omniauth")
+          # flash[:alert] = t("authorizations.new.error", scope: "decidim.verifications.omniauth")
+          redirect_to stored_location_for(:redirect)
         end
 
         private
@@ -44,6 +44,10 @@ module Decidim
 
         def provider
           @provider ||= handler.omniauth_provider
+        end
+
+        def main_engine
+          @main_engine ||= Decidim::Verifications::Adapter.from_element(handler_name).send("decidim_#{handler_name}")
         end
       end
     end

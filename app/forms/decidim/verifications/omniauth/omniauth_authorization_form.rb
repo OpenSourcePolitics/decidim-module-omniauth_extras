@@ -5,11 +5,12 @@ module Decidim
     module Omniauth
       class OmniauthAuthorizationForm < AuthorizationHandler
         attribute :provider, String
+        attribute :oauth_data, Hash
 
         validate :validated
 
         def metadata
-          super.merge(provider: provider)
+          super.merge(provider: provider).merge(oauth_data)
         end
 
         def unique_id
@@ -18,6 +19,14 @@ module Decidim
 
         def authorized?
           identity_for_user&.present?
+        end
+
+        def form_attributes
+          super - [:provider, :oauth_data]
+        end
+
+        def to_partial_path
+          handler_name.sub!(/_form$/, "") + "/form"
         end
 
         private
@@ -34,6 +43,10 @@ module Decidim
 
         def identity_for_user
           @identity_for_user ||= Decidim::Identity.find_by(organization: organization, user: user, provider: provider)
+        end
+
+        def _clean_hash(data)
+          data.delete_if {|k,v| ((v.is_a? Hash) ? _clean_hash(v) : v).blank?}
         end
 
       end

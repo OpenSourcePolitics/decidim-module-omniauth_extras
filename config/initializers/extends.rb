@@ -1,1 +1,2 @@
-require "decidim/devise/extends/omniauth_registrations_controller"
+require "extends/decidim/omniauth_registration_form_extend"
+require "extends/decidim/devise/omniauth_registrations_controller_extend"

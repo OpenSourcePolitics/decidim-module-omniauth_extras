@@ -1,9 +1,12 @@
+# frozen_string_literal: true
+require "active_support/concern"
+
 module Decidim
   module Verifications
-    module Extends
-      module WorkflowManifest
+    module Omniauth
+      module WorkflowManifestExtend
         extend ActiveSupport::Concern
-        
+
         included do
           attribute :omniauth_provider, String
         end
@@ -13,5 +16,5 @@ module Decidim
 end
 
 Decidim::Verifications::WorkflowManifest.class_eval do
-  include Decidim::Verifications::Extends::WorkflowManifest
+  include Decidim::Verifications::Omniauth::WorkflowManifestExtend
 end
