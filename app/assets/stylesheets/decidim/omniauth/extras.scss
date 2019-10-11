@@ -13,3 +13,45 @@
     }
   }
 }
+
+.table-list__actions{
+  .button_to .button {
+    text-transform: lowercase;
+    font-variant: small-caps;
+    font-size: 100%;
+    font-weight: bold;
+
+    margin-bottom: 0;
+
+    &.tiny{ padding: .15rem .5rem .35rem; }
+
+    .icon{
+      vertical-align: inherit;
+      margin-right: .25rem;
+    }
+  }
+}
+
+.authorizations .table-list__actions{
+  vertical-align: middle;
+}
+
+.reveal__header .card-title {
+  padding-left: .5rem;
+}
+
+table.metadata tbody td{
+  border: 1px solid #f6f6f6;
+
+  &.key {
+    text-transform: lowercase;
+    font-variant: small-caps;
+    font-weight: bold;
+    white-space: nowrap;
+  }
+
+  &.value {
+    width: 100%;
+  }
+
+}
