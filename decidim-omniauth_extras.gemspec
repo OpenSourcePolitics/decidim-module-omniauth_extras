@@ -22,4 +22,5 @@ Gem::Specification.new do |s|
   s.add_dependency "omniauth", "~> 1.5"
   s.add_dependency "omniauth-oauth2", ">= 1.4.0", "< 2.0"
   s.add_dependency "omniauth_openid_connect", "0.3.1"
+  s.add_dependency "omniauth-saml", "~> 1.10"
 end

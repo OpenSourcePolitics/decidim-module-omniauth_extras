@@ -3,6 +3,7 @@
 require "omniauth/strategies/decidim"
 require "omniauth/strategies/france_connect_uid"
 require "omniauth/strategies/france_connect_profile"
+require "omniauth/strategies/eid_saml"
 
 require "decidim/omniauth_extras/admin"
 require "decidim/omniauth_extras/engine"

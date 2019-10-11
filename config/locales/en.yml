@@ -15,6 +15,9 @@ en:
       omniauth_extras:
         name: OmniauthExtras
     authorization_handlers:
+      decidim:
+        name: Omniauth Decidim
+        explanation: Validate with your external Decidim account
       france_connect:
         name: France Connect
         explanation: Validate with your France Connect account
@@ -26,14 +29,27 @@ en:
         explanation: Validate with your France Connect account
       omniauth_decidim_handler:
         name: Omniauth Decidim
-      decidim:
-        name: Omniauth Decidim
-        explanation: Validate with your external Decidim account
       omniauth_authorization_form:
         name: Name
+      saml:
+        name: CSAM eID
+        explanation: Validate with your CSAM eID account
     verifications:
+      metadata:
+        content:
+          title: Authorization metadata
       omniauth:
         authorizations:
           new:
             error: We could not verify your account from this external provider.
             success: Your account has been successfully verified.
+        admin:
+          authorizations:
+            index:
+              actions:
+                metadata: View metadata
+              fields:
+                name: User
+                granted_at: Granted at
+                uid: Unique ID
+              title: "%{handler_name} authorizations"
