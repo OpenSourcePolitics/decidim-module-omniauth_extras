@@ -7,7 +7,9 @@ module Decidim
         attribute :provider, String
         attribute :oauth_data, Hash
 
-        validate :validated
+        validate :has_identity?
+        validate :check_anti_affinity?
+        validate :has_minimum_age?
 
         def metadata
           super.merge(provider: provider).merge(oauth_data)
@@ -15,10 +17,6 @@ module Decidim
 
         def unique_id
           identity_for_user&.uid
-        end
-
-        def authorized?
-          identity_for_user&.present?
         end
 
         def form_attributes
@@ -31,10 +29,35 @@ module Decidim
 
         private
 
-        def validated
-          return if authorized?
+        def manifest
+          @mainfest ||= Decidim::Verifications.find_workflow_manifest(provider)
+        end
 
-          errors.add(:uid, I18n.t("decidim.verifications.omniauth.authorizations.new.error"))
+        def has_identity?
+          identity_for_user&.present?
+        end
+
+        def check_anti_affinity?
+          return true unless manifest.anti_affinity&.present?
+
+          anti_affinity_names = (manifest.anti_affinity & identities_for_user.pluck(:provider))
+          return true unless anti_affinity_names.any?
+
+          anti_affinity_labels = (anti_affinity_names << provider.to_s).map do |handler|
+            I18n.t("#{handler}.name", scope: "decidim.authorization_handlers")
+          end.join(" / ")
+
+          errors.add(:anti_affinity, I18n.t("decidim.verifications.omniauth.errors.anti_affinity", anti_affinity: anti_affinity_labels))
+          false
+        end
+
+        def has_minimum_age?
+          return true unless manifest.minimum_age &&
+            metadata.dig(:date_of_birth).present? &&
+            (((Time.zone.now - metadata.dig(:date_of_birth).to_time) / 1.year.seconds).floor <= manifest.minimum_age)
+
+          errors.add(:minimum_age, I18n.t("decidim.verifications.omniauth.errors.minimum_age", minimum_age: manifest.minimum_age))
+          false
         end
 
         def organization
@@ -45,10 +68,13 @@ module Decidim
           @identity_for_user ||= Decidim::Identity.find_by(organization: organization, user: user, provider: provider)
         end
 
+        def identities_for_user
+          @identities_for_user ||= Decidim::Identity.where(organization: organization, user: user)
+        end
+
         def _clean_hash(data)
           data.delete_if {|k,v| ((v.is_a? Hash) ? _clean_hash(v) : v).blank?}
         end
-
       end
     end
   end

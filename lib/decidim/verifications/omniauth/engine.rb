@@ -3,6 +3,8 @@
 module Decidim
   module Verifications
     module Omniauth
+      autoload :ActionAuthorizer, "decidim/verifications/omniauth/action_authorizer"
+
       class Engine < ::Rails::Engine
         isolate_namespace Decidim::Verifications::Omniauth
 

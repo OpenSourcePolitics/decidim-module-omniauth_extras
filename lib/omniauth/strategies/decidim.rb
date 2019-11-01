@@ -11,6 +11,7 @@ module OmniAuth
       option :name, :decidim
       option :site, nil
       option :client_options, {}
+      option :origin_param, "redirect_url"
 
       uid do
         raw_info["id"]
