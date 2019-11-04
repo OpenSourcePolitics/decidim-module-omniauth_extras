@@ -14,8 +14,7 @@ module OmniAuth
           first_name: user_info.given_name,
           last_name: user_info.family_name,
           gender: user_info.gender,
-          date_of_birth: user_info.birthdate,
-          postal_code: extra.dig(:raw_info,:birthplace)
+          date_of_birth: user_info.birthdate
         }
       end
 
