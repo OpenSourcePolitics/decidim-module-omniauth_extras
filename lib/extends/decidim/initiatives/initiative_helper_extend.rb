@@ -14,7 +14,7 @@ module Decidim
             organization: current_organization,
             user: current_initiative.author,
             granted: true,
-            name: action_authorized_to("create", resource: current_initiative, permissions_holder: current_initiative.type).statuses.map { |s| s.handler_name }
+            name: (action_authorized_to("create", resource: current_initiative, permissions_holder: current_initiative.type).statuses || []).map { |s| s.handler_name }
           )
         end
 

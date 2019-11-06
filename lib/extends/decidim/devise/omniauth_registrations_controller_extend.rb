@@ -10,14 +10,13 @@ module Decidim
         prepend_before_action :manage_omniauth_origin, if: :is_omniauth_registration?
         prepend_before_action :manage_omniauth_authorization, if: :is_omniauth_authorization?
         after_action :grant_omniauth_authorization, if: :is_omniauth_registration?
-        # append_after_action :sign_out_from_provider, only: [:create], if: :is_omniauth_registration?
 
         skip_before_action :verify_authenticity_token, if: :is_omniauth_registration?
 
         private
 
         def is_omniauth_registration?
-          params[:controller] == "decidim/devise/omniauth_registrations"
+          params[:controller] == "decidim/devise/omniauth_registrations" && params[:action] != "logout"
         end
 
         def is_omniauth_authorization?
@@ -84,18 +83,12 @@ module Decidim
 
           Decidim::Verifications::Omniauth::ConfirmOmniauthAuthorization.call(@authorization, @form) do
             on(:ok) do
-              flash[:notice] = t("authorizations.new.success", scope: "decidim.verifications.omniauth")
+              flash[:omniauth] = t("authorizations.new.success", scope: "decidim.verifications.omniauth")
             end
             on(:invalid) do
               flash[:alert] = @form.errors.to_h.values.join(' ')
             end
           end
-        end
-
-        def sign_out_from_provider
-          Rails.logger.debug "+++++++++++++++++++++++++"
-          Rails.logger.debug "OmniauthRegistrationsController.sign_out_from_provider"
-          Rails.logger.debug "+++++++++++++++++++++++++"
         end
       end
     end

@@ -1,0 +1,60 @@
+---
+fr:
+  decidim:
+    admin:
+      menu:
+        omniauth_settings: Omniauth
+      omniauth_settings:
+        edit:
+          title: Editer les paramètres Omniauth
+          update: Mettre à jour
+        provider:
+          config: Configuration
+          enabled: Activer %{provider}
+    components:
+      omniauth_extras:
+        name: OmniauthExtras
+    authorization_handlers:
+      decidim:
+        name: Omniauth Decidim
+        explanation: Confirmer votre identité avec un compte Decidim externe
+      france_connect:
+        name: France Connect
+        explanation: Confirmer votre identité avec un compte France Connect
+      france_connect_uid:
+        name: France Connect Level I
+        explanation: Confirmer votre identité avec un compte France Connect "Auteur"
+      france_connect_profile:
+        name: France Connect Level II
+        explanation: Confirmer votre identité avec un compte France Connect "Anonyme"
+      omniauth_anti_affinity:
+        explanation: Vous devez vous connecter avec un autre compte pour valider cette autorisation.
+      omniauth_decidim_handler:
+        name: Omniauth Decidim
+      omniauth_authorization_form:
+        name: Nom
+      saml:
+        name: CSAM eID
+        explanation: Confirmer votre identité avec un compte CSAM eID
+    verifications:
+      metadata:
+        content:
+          title: Données issues de l'autorisation
+      omniauth:
+        authorizations:
+          new:
+            error: Impossible de confirmer votre compte avec ce service externe.
+            success: Votre compte a été confirmé avec succès.
+        errors:
+          anti_affinity: "Vous ne pouvez pas être connecter avec ces 2 identités en même temps: %{anti_affinity}"
+          minimum_age: "Vous devez avoir au moins #{minimum_age} pour confirmer votre compte."
+        admin:
+          authorizations:
+            index:
+              actions:
+                metadata: Voir les informations
+              fields:
+                name: Utilisateur
+                granted_at: Autorisé le
+                uid: UID
+              title: Autorisations pour %{handler_name}

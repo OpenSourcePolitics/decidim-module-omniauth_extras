@@ -12,9 +12,9 @@ module Decidim
 
       mimic :organization
 
-        omniauth_settings_jsonb_attribute :omniauth_settings, Decidim::User.omniauth_providers.select {
-          |provider| Rails.application.secrets.dig(:omniauth, provider.to_sym, :enabled)
-        }
+      omniauth_settings_jsonb_attribute :omniauth_settings, Decidim::User.omniauth_providers.select {
+        |provider| Rails.application.secrets.dig(:omniauth, provider.to_sym, :enabled)
+      }
 
     end
   end

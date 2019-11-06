@@ -13,7 +13,6 @@ module OmniAuth
           nickname: ::Decidim::UserBaseEntity.nicknamize(find_nickname),
           first_name: user_info.given_name,
           last_name: user_info.family_name,
-          gender: user_info.gender,
           date_of_birth: user_info.birthdate
         }
       end
@@ -30,6 +29,28 @@ module OmniAuth
         super + (options.acr_values.present? ? "&acr_values=#{options.acr_values}" : "")
       end
 
+      def auth_hash
+        hash = super
+        hash.logout = end_session_uri
+        hash
+      end
+
+      def other_phase
+        call_app!
+      end
+
+      def end_session_uri
+        return unless client_options.end_session_endpoint
+
+        end_session_uri = URI(options.issuer + client_options.end_session_endpoint)
+        end_session_uri.query = URI.encode_www_form(
+          id_token_hint: credentials[:id_token],
+          state: session_state,
+          post_logout_redirect_uri: "#{full_host}/users/auth/#{options.name}/logout"
+        )
+        end_session_uri.to_s
+      end
+
       private
 
       def redirect_uri
@@ -39,8 +60,11 @@ module OmniAuth
       end
 
       def omniauth_callback_url
-        # client_options.redirect_uri unless client_options.redirect_uri.blank?
         full_host + script_name + callback_path
+      end
+
+      def session_state
+        session['omniauth.state'] = params["state"] || SecureRandom.hex(16)
       end
     end
   end

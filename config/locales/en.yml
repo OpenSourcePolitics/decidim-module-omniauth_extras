@@ -28,7 +28,7 @@ en:
         name: France Connect Level II
         explanation: Validate with your France Connect account
       omniauth_anti_affinity:
-        explanation: You must login with another account to validate this authorization
+        explanation: You must log in with another account to validate this authorization
       omniauth_decidim_handler:
         name: Omniauth Decidim
       omniauth_authorization_form:
