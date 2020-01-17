@@ -83,7 +83,7 @@ module Decidim
 
           Decidim::Verifications::Omniauth::ConfirmOmniauthAuthorization.call(@authorization, @form) do
             on(:ok) do
-              flash[:omniauth] = t("authorizations.new.success", scope: "decidim.verifications.omniauth")
+              flash[:omniauth] = t("authorizations.new.success", scope: "decidim.verifications.omniauth", locale: current_user.locale)
             end
             on(:invalid) do
               flash[:alert] = @form.errors.to_h.values.join(' ')

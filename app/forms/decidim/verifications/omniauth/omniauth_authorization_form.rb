@@ -47,7 +47,7 @@ module Decidim
             I18n.t("#{handler}.name", scope: "decidim.authorization_handlers")
           end.join(" / ")
 
-          errors.add(:anti_affinity, I18n.t("decidim.verifications.omniauth.errors.anti_affinity", anti_affinity: anti_affinity_labels))
+          errors.add(:anti_affinity, I18n.t("decidim.verifications.omniauth.errors.anti_affinity", anti_affinity: anti_affinity_labels, locale: user.locale))
           false
         end
 
@@ -56,7 +56,7 @@ module Decidim
             metadata.dig(:date_of_birth).present? &&
             (((Time.zone.now - metadata.dig(:date_of_birth).to_time) / 1.year.seconds).floor <= manifest.minimum_age)
 
-          errors.add(:minimum_age, I18n.t("decidim.verifications.omniauth.errors.minimum_age", minimum_age: manifest.minimum_age))
+          errors.add(:minimum_age, I18n.t("decidim.verifications.omniauth.errors.minimum_age", minimum_age: manifest.minimum_age, locale: user.locale))
           false
         end
 

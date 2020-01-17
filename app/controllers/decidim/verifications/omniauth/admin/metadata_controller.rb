@@ -10,7 +10,6 @@ module Decidim
           helper_method :handler_name
 
           def show
-            enforce_permission_to :index, :authorization
             @metadata ||= current_authorization.metadata
             render template: "decidim/verifications/metadata/show"
           end

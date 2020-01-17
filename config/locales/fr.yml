@@ -47,7 +47,7 @@ fr:
             success: Votre compte a été confirmé avec succès.
         errors:
           anti_affinity: "Vous ne pouvez pas être connecter avec ces 2 identités en même temps: %{anti_affinity}"
-          minimum_age: "Vous devez avoir au moins #{minimum_age} pour confirmer votre compte."
+          minimum_age: "Vous devez avoir au moins %{minimum_age} pour confirmer votre compte."
         admin:
           authorizations:
             index:

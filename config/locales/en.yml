@@ -15,6 +15,22 @@ en:
       omniauth_extras:
         name: OmniauthExtras
     authorization_handlers:
+      admin:
+        decidim:
+          help:
+            - Validate with an external Decidim account
+        france_connect:
+          help:
+            - Validate with a France Connect account
+        france_connect_uid:
+          help:
+            - Validate with a France Connect Level I account
+        france_connect_profile:
+          help:
+            - Validate with a France Connect Level II account
+        saml:
+          help:
+            - Validate with a CSAM eID account
       decidim:
         name: Omniauth Decidim
         explanation: Validate with your external Decidim account
@@ -23,10 +39,10 @@ en:
         explanation: Validate with your France Connect account
       france_connect_uid:
         name: France Connect Level I
-        explanation: Validate with your France Connect account
+        explanation: Validate with your France Connect Level I account
       france_connect_profile:
         name: France Connect Level II
-        explanation: Validate with your France Connect account
+        explanation: Validate with your France Connect Level II account
       omniauth_anti_affinity:
         explanation: You must log in with another account to validate this authorization
       omniauth_decidim_handler:
